@@ -1,5 +1,4 @@
 services:
-
   # roda na porta 6379
   servicos_redis:
     container_name: servicos_redis
@@ -22,15 +21,15 @@ services:
     hostname: servicos_rabbitmq
     restart: always
     volumes:
-        - servicos_rabbitmq_data:/var/lib/rabbitmq/
-        - ./backups:/backups
+      - servicos_rabbitmq_data:/var/lib/rabbitmq/
+      - ./backups:/backups
     networks:
       - servicos
     env_file:
       - .env
     ports:
-        - 15672:15672
-        - 5672:5672
+      - 15672:15672
+      - 5672:5672
 
   # roda na porta 5432
   servicos_postgres:
@@ -47,7 +46,7 @@ services:
     env_file:
       - .env
     ports:
-      - 5432:5432    
+      - 5432:5432
     shm_size: 1gb
     mem_limit: 2GB
 
@@ -109,7 +108,6 @@ volumes:
     name: servicos_mongo_data
   servicos_qdrant_data:
     name: servicos_qdrant_data
-
 
 networks:
   servicos:
