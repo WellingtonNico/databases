@@ -14,7 +14,7 @@ será necessário duas coisas:
 - instalar os comandos(se já não tiver instalado):
   pode fazer isso do jeito mais fácil instalando um cliente postgres e deixando adormecido
   ou pode instalar(se disponível pro seu sistema) a libpq-dev
-  no mack `brew install libpq && brew link --force libpq`
+  no macos `brew install libpq && brew link --force libpq`
 - adicionar duas constantes no seu `.bashrc` ou `.zshrc`:
   ```bash
   export PGHOST="localhost"
