@@ -62,6 +62,22 @@ services:
   #   ports:
   #     - 6432:6432
 
+  # roda na porta 3306
+  servicos_mysql:
+    container_name: servicos_mysql
+    restart: always
+    image: mysql:9.3
+    volumes:
+      - servicos_mysql_data:/var/lib/mysql
+      - ./backups:/backups
+      - ./mysql-conf/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+    networks:
+      - servicos
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
+
   # roda na porta 27017
   servicos_mongo:
     container_name: servicos_mongo
@@ -108,7 +124,10 @@ volumes:
     name: servicos_mongo_data
   servicos_qdrant_data:
     name: servicos_qdrant_data
+  servicos_mysql_data:
+    name: servicos_mysql_data
 
 networks:
   servicos:
     external: true
+    driver: bridge

@@ -1,2 +1,4 @@
 backups
 .qodo
+.vscode
+.DS_Store
