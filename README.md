@@ -4,7 +4,7 @@
 
 - verificar .env e alterar o nome de usuário;
 - criar uma network docker chamada serviços `docker network create servicos`;
-- caso for usar o postgres em produçnao, atentar para a variável de ambiente `POSTGRES_HOST_AUTH_METHOD`, alterar para `md5`;
+- caso for usar o postgres em produção, atentar para a variável de ambiente `POSTGRES_HOST_AUTH_METHOD`, alterar para `md5`;
 
 ## comandos postgres direto no terminal host:
 
