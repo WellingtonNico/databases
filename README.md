@@ -2,7 +2,7 @@
 
 ## antes de usar:
 
-- verificar .env e alterar o nome de usuário;
+- copiar o arquivo `template.env` para o `.env` e alterar o nome de usuário;
 - criar uma network docker chamada serviços `docker network create servicos`;
 - caso for usar o postgres em produção, atentar para a variável de ambiente `POSTGRES_HOST_AUTH_METHOD`, alterar para `md5`;
 
@@ -24,3 +24,11 @@ será necessário duas coisas:
 # Recomendação
 
 faça um fork deste repositório para fazer seus próprios ajustes e ter disponível no seu próprio github
+
+## ORACLE
+
+- comando para logar no sqlplus:
+
+```bash
+sqlplus <usuario>/<senha>@localhost/<database>
+```

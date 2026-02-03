@@ -113,6 +113,21 @@ services:
     env_file:
       - .env
 
+  servicos_oracle:
+    container_name: servicos_oracle
+    platform: linux/amd64
+    restart: always
+    image: gvenzl/oracle-xe:latest
+    volumes:
+      - servicos_oracle_data:/opt/oracle/oradata
+      - ./backups:/backups
+      - ./container-entrypoint-startdb.d:/container-entrypoint-startdb.d
+    ports:
+      - 1521:1521
+
+    env_file:
+      - .env
+
 volumes:
   servicos_postgres_data:
     name: servicos_postgres_data
@@ -126,6 +141,8 @@ volumes:
     name: servicos_qdrant_data
   servicos_mysql_data:
     name: servicos_mysql_data
+  servicos_oracle_data:
+    name: servicos_oracle_data
 
 networks:
   servicos:
