@@ -3,6 +3,8 @@ backups
 .vscode
 .DS_Store
 .env
+docker-compose.yaml
+docker-compose.yml
 
 # arquivos de configuração personalizados do PostgreSQL
 configs/postgresql/pg_hba.conf
