@@ -37,7 +37,7 @@ services:
     restart: always
     image: postgres:18.1-bookworm
     volumes:
-      - servicos_postgres_18_data:/var/lib/postgresql
+      - servicos_postgres_data:/var/lib/postgresql
       - ./backups:/backups
       - ./configs/postgresql:/configs/postgresql # monta o diretório de configuração personalizado    
     command:
@@ -56,16 +56,16 @@ services:
     mem_limit: 2GB
 
   # roda na porta 6432
-  # servicos_pgbouncer:
-  #   container_name: servicos_pgbouncer
-  #   restart: always
-  #   image: bitnami/pgbouncer:latest
-  #   networks:
-  #     - servicos
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - 6432:6432
+  servicos_pgbouncer:
+    container_name: servicos_pgbouncer
+    restart: always
+    image: bitnami/pgbouncer:latest
+    networks:
+      - servicos
+    env_file:
+      - .env
+    ports:
+      - 6432:6432
 
   # roda na porta 3306
   servicos_mysql:
@@ -136,8 +136,6 @@ services:
 volumes:
   servicos_postgres_data:
     name: servicos_postgres_data
-  servicos_postgres_18_data:
-    name: servicos_postgres_18_data
   servicos_redis_data:
     name: servicos_redis_data
   servicos_rabbitmq_data:
