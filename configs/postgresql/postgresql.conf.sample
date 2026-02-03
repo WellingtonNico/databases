@@ -129,7 +129,7 @@ max_connections = 100			# (change requires restart)
 
 # - Memory -
 
-shared_buffers = 128MB			# min 128kB
+shared_buffers = 2GB			# min 128kB
 					# (change requires restart)
 #huge_pages = try			# on, off, or try
 					# (change requires restart)
@@ -140,9 +140,9 @@ shared_buffers = 128MB			# min 128kB
 					# (change requires restart)
 # Caution: it is not advisable to set max_prepared_transactions nonzero unless
 # you actively intend to use prepared transactions.
-#work_mem = 4MB				# min 64kB
+work_mem = 8MB				# min 64kB
 #hash_mem_multiplier = 2.0		# 1-1000.0 multiplier on hash table work_mem
-#maintenance_work_mem = 64MB		# min 64kB
+maintenance_work_mem = 512MB	# min 64kB
 #autovacuum_work_mem = -1		# min 64kB, or -1 to use maintenance_work_mem
 #logical_decoding_work_mem = 64MB	# min 64kB
 #max_stack_depth = 2MB			# min 100kB
@@ -198,8 +198,8 @@ dynamic_shared_memory_type = posix	# the default is usually the first option
 # - I/O -
 
 #backend_flush_after = 0		# measured in pages, 0 disables
-#effective_io_concurrency = 16		# 1-1000; 0 disables issuing multiple simultaneous IO requests
-#maintenance_io_concurrency = 16	# 1-1000; same as effective_io_concurrency
+effective_io_concurrency = 200		# 1-1000; 0 disables issuing multiple simultaneous IO requests
+maintenance_io_concurrency = 200	# 1-1000; same as effective_io_concurrency
 #io_max_combine_limit = 128kB		# usually 1-128 blocks (depends on OS)
 					# (change requires restart)
 #io_combine_limit = 128kB		# usually 1-128 blocks (depends on OS)
@@ -214,10 +214,10 @@ dynamic_shared_memory_type = posix	# the default is usually the first option
 
 # - Worker Processes -
 
-#max_worker_processes = 8		# (change requires restart)
-#max_parallel_workers_per_gather = 2	# limited by max_parallel_workers
-#max_parallel_maintenance_workers = 2	# limited by max_parallel_workers
-#max_parallel_workers = 8		# number of max_worker_processes that
+max_worker_processes = 16		# (change requires restart)
+max_parallel_workers_per_gather = 2	# limited by max_parallel_workers
+#max_parallel_maintenance_workers = 4	# limited by max_parallel_workers
+max_parallel_workers = 16		# number of max_worker_processes that
 					# can be used in parallel operations
 #parallel_leader_participation = on
 
@@ -260,12 +260,12 @@ dynamic_shared_memory_type = posix	# the default is usually the first option
 
 # - Checkpoints -
 
-#checkpoint_timeout = 5min		# range 30s-1d
-#checkpoint_completion_target = 0.9	# checkpoint target duration, 0.0 - 1.0
+checkpoint_timeout = 15min		# range 30s-1d
+checkpoint_completion_target = 0.9	# checkpoint target duration, 0.0 - 1.0
 #checkpoint_flush_after = 256kB		# measured in pages, 0 disables
 #checkpoint_warning = 30s		# 0 disables
-max_wal_size = 1GB
-min_wal_size = 80MB
+max_wal_size = 4GB
+min_wal_size = 2GB
 
 # - Prefetching during recovery -
 
@@ -432,7 +432,7 @@ min_wal_size = 80MB
 # - Planner Cost Constants -
 
 #seq_page_cost = 1.0			# measured on an arbitrary scale
-#random_page_cost = 4.0			# same scale as above
+random_page_cost = 1.1			# same scale as above
 #cpu_tuple_cost = 0.01			# same scale as above
 #cpu_index_tuple_cost = 0.005		# same scale as above
 #cpu_operator_cost = 0.0025		# same scale as above
@@ -440,7 +440,7 @@ min_wal_size = 80MB
 #parallel_tuple_cost = 0.1		# same scale as above
 #min_parallel_table_scan_size = 8MB
 #min_parallel_index_scan_size = 512kB
-#effective_cache_size = 4GB
+effective_cache_size = 4GB
 
 #jit_above_cost = 100000		# perform JIT compilation if available
 					# and query more expensive than this;
@@ -463,7 +463,7 @@ min_wal_size = 80MB
 
 # - Other Planner Options -
 
-#default_statistics_target = 100	# range 1-10000
+default_statistics_target = 500	# range 1-10000
 #constraint_exclusion = partition	# on, off, or partition
 #cursor_tuple_fraction = 0.1		# range 0.0-1.0
 #from_collapse_limit = 8
@@ -678,23 +678,23 @@ log_timezone = 'Etc/UTC'
 
 # - Automatic Vacuuming -
 
-#autovacuum = on			# Enable autovacuum subprocess?  'on'
+autovacuum = on			# Enable autovacuum subprocess?  'on'
 					# requires track_counts to also be on.
-autovacuum_worker_slots = 16	# autovacuum worker slots to allocate
+autovacuum_worker_slots = 4	# autovacuum worker slots to allocate
 					# (change requires restart)
-#autovacuum_max_workers = 3		# max number of autovacuum subprocesses
-#autovacuum_naptime = 1min		# time between autovacuum runs
-#autovacuum_vacuum_threshold = 50	# min number of row updates before
+autovacuum_max_workers = 4		# max number of autovacuum subprocesses
+autovacuum_naptime = 1min		# time between autovacuum runs
+autovacuum_vacuum_threshold = 50	# min number of row updates before
 					# vacuum
 #autovacuum_vacuum_insert_threshold = 1000	# min number of row inserts
 						# before vacuum; -1 disables insert
 						# vacuums
-#autovacuum_analyze_threshold = 50	# min number of row updates before
+autovacuum_analyze_threshold = 50	# min number of row updates before
 					# analyze
-#autovacuum_vacuum_scale_factor = 0.2	# fraction of table size before vacuum
+autovacuum_vacuum_scale_factor = 0.05	# fraction of table size before vacuum
 #autovacuum_vacuum_insert_scale_factor = 0.2	# fraction of unfrozen pages
           # before insert vacuum
-#autovacuum_analyze_scale_factor = 0.1	# fraction of table size before analyze
+autovacuum_analyze_scale_factor = 0.05	# fraction of table size before analyze
 #autovacuum_vacuum_max_threshold = 100000000    # max number of row updates
 						# before vacuum; -1 disables max
 						# threshold
