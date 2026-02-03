@@ -8,7 +8,7 @@ services:
       - servicos_redis_data:/data
     networks:
       - servicos
-    command: redis-server --appendonly yes
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     env_file:
       - .env
     ports:
@@ -35,12 +35,17 @@ services:
   servicos_postgres:
     container_name: servicos_postgres
     restart: always
-    image: postgres:16.1-bullseye
+    image: postgres:18.1-bookworm
     volumes:
-      - servicos_postgres_data:/var/lib/postgresql/data/
+      - servicos_postgres_18_data:/var/lib/postgresql
       - ./backups:/backups
-      - ./volumes/postgres/postgresql.conf:/volumes/postgres/postgresql.conf
-    command: postgres -c 'config_file=/volumes/postgres/postgresql.conf'
+      - ./configs/postgresql:/configs/postgresql # monta o diretório de configuração personalizado    
+    command:
+      - postgres
+      - -c
+      - config_file=/configs/postgresql/postgresql.conf
+      - -c
+      - hba_file=/configs/postgresql/pg_hba.conf
     networks:
       - servicos
     env_file:
@@ -70,7 +75,7 @@ services:
     volumes:
       - servicos_mysql_data:/var/lib/mysql
       - ./backups:/backups
-      - ./mysql-conf/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - ./configs/mysql/my.cnf:/etc/mysql/conf.d/my.cnf:ro
     networks:
       - servicos
     env_file:
@@ -131,6 +136,8 @@ services:
 volumes:
   servicos_postgres_data:
     name: servicos_postgres_data
+  servicos_postgres_18_data:
+    name: servicos_postgres_18_data
   servicos_redis_data:
     name: servicos_redis_data
   servicos_rabbitmq_data:

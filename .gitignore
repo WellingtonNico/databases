@@ -3,3 +3,10 @@ backups
 .vscode
 .DS_Store
 .env
+
+# arquivos de configuração personalizados do PostgreSQL
+configs/postgresql/pg_hba.conf
+configs/postgresql/postgresql.conf
+
+# arquivos de configuração personalizados do MySQL
+configs/mysql/my.cnf
