@@ -3,12 +3,12 @@ services:
   servicos_redis:
     container_name: servicos_redis
     restart: always
-    image: redis:6.0-alpine3.16
+    image: redis:8.6.0-alpine3.23
     volumes:
       - servicos_redis_data:/data
     networks:
       - servicos
-    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} --auto-aof-rewrite-percentage 50 --auto-aof-rewrite-min-size 64mb
     env_file:
       - .env
     ports:
@@ -39,7 +39,7 @@ services:
     volumes:
       - servicos_postgres_data:/var/lib/postgresql
       - ./backups:/backups
-      - ./configs/postgresql:/configs/postgresql # monta o diretório de configuração personalizado    
+      - ./configs/postgresql:/configs/postgresql # monta o diretório de configuração personalizado
     command:
       - postgres
       - -c
