@@ -1,0 +1,4 @@
+# configuração e manutenção do arquivo de log de comandos (AOF)
+appendonly yes
+auto-aof-rewrite-percentage 50
+auto-aof-rewrite-min-size 64mb

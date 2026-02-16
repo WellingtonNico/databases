@@ -9,6 +9,7 @@ docker-compose.yml
 # arquivos de configuração personalizados do PostgreSQL
 configs/postgresql/pg_hba.conf
 configs/postgresql/postgresql.conf
+configs/redis/redis.conf
 
 # arquivos de configuração personalizados do MySQL
 configs/mysql/my.cnf

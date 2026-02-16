@@ -5,6 +5,7 @@
 - copiar o arquivo `template.env` para o `.env` e alterar o nome de usuário;
 - criar uma network docker chamada serviços `docker network create servicos`;
 - caso for usar o postgres em produção, atentar para a variável de ambiente `POSTGRES_HOST_AUTH_METHOD`, alterar para `md5`;
+- copie os arquivos de configuração dos serviços que for usar na pasta `configs` removendo `.sample` do final dos nomes;
 
 ## comandos postgres direto no terminal host:
 
