@@ -6,6 +6,7 @@ services:
     image: redis:8.6.0-alpine3.23
     volumes:
       - servicos_redis_data:/data
+      - ./configs/certs/:/configs/certs/
       - ./configs/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
     networks:
       - servicos

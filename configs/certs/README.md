@@ -64,3 +64,30 @@ servicos_rabbitmq:
 ```
 
 - Descomentar a sessão de configuração de SSL no arquivo de configurações `./configs/rabbitmq/rabbitmq.conf`.
+
+## Redis
+
+No arquivo de configuração do redis, precisa desabilitar a porta 6379 e ativar a porta 6380 e apontar para os certificados SSL:
+
+```bash
+# Disable non-TLS
+port 0
+
+# Enable TLS port
+tls-port 6380
+
+tls-cert-file /configs/certs/server.crt
+tls-key-file /configs/certs/server.key
+tls-ca-cert-file /configs/certs/server.crt
+
+# If self-signed and no mutual TLS:
+tls-auth-clients no
+```
+
+No docker compose basta alterar a porta exposta:
+
+```yaml
+servicos_redis:
+  ports:
+    - 6380:6380
+```
