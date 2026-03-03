@@ -20,3 +20,4 @@ configs/rabbitmq/rabbitmq.conf
 # certificados SSL
 configs/certs/*.crt
 configs/certs/*.key
+configs/certs/openssl-ip.cnf
