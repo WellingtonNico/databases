@@ -13,3 +13,7 @@ configs/redis/redis.conf
 
 # arquivos de configuração personalizados do MySQL
 configs/mysql/my.cnf
+
+# certificados SSL
+configs/certs/*.crt
+configs/certs/*.key
