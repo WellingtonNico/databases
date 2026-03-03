@@ -14,6 +14,9 @@ configs/redis/redis.conf
 # arquivos de configuração personalizados do MySQL
 configs/mysql/my.cnf
 
+# arquivos de configuração personalizados do RabbitMQ
+configs/rabbitmq/rabbitmq.conf
+
 # certificados SSL
 configs/certs/*.crt
 configs/certs/*.key

@@ -19,18 +19,15 @@ Após criar os arquivos deve dar permissão para o arquivo `server.key` use o co
 sudo chown 999 ./server.key
 ```
 
-## Para cada serviço há um jeito diferente de usar o SSL
+# Para cada serviço há um jeito diferente de usar o SSL
 
-### Postgres
+## Postgres
 
 Na configuração docker do postgres precisam ser inseridos alguns argumentos na inicialização, configurar o volume dos certificados e expor a porta.
 
 ```yaml
 servicos_postgres:
   ...
-  volumes:
-    ...
-    - ./configs/certs:/configs/certs
   command:
     ...
     - -c
@@ -52,3 +49,18 @@ local   all   all   trust
 # exige senha e ssl para acessos externos
 hostssl   all   all   0.0.0.0/0   scram-sha-256
 ```
+
+## RabbitMQ
+
+No rabbitmq precisa fazer duas alterações:
+
+- Alterar as portas expostas para as portas que suportam SSL:
+
+```yaml
+servicos_rabbitmq:
+  ports:
+    - 15671:15671
+    - 5671:5671
+```
+
+- Descomentar a sessão de configuração de SSL no arquivo de configurações `./configs/rabbitmq/rabbitmq.conf`.

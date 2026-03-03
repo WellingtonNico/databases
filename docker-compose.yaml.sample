@@ -24,6 +24,8 @@ services:
     volumes:
       - servicos_rabbitmq_data:/var/lib/rabbitmq/
       - ./backups:/backups
+      - ./configs/certs/:/configs/certs/
+      - ./configs/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
     networks:
       - servicos
     env_file:
@@ -40,6 +42,7 @@ services:
     volumes:
       - servicos_postgres_data:/var/lib/postgresql
       - ./backups:/backups
+      - ./configs/certs/:/configs/certs/
       - ./configs/postgresql:/configs/postgresql:ro # monta o diretório de configuração personalizado
     command:
       - postgres
