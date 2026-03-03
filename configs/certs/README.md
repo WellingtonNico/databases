@@ -2,7 +2,7 @@
 
 ## Criando certificado auto assinado
 
-Este comando irá gerar os arquivos de certificado, rode o comando de dentro da pasta `./configs/certs/`.
+Este comando irá gerar os arquivos de certificado, rode o comando de dentro da pasta `./configs/certs/`, lembre de copiar o arquivo `openssl-ip.cnf` e mudar o IP.
 
 ```bash
 openssl req -x509 -newkey rsa:4096 \
@@ -10,7 +10,7 @@ openssl req -x509 -newkey rsa:4096 \
   -out server.crt \
   -days 36500 \
   -nodes \
-  -subj "/CN=<ip_onde_será_hospedado_o_banco>"
+  -config openssl-ip.cnf
 ```
 
 Após criar os arquivos deve dar permissão para o arquivo `server.key` use o comando abaixo:
