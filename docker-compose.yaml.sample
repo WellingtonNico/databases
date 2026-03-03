@@ -17,7 +17,7 @@ services:
 
   # roda nas portas 5672 e 15672
   servicos_rabbitmq:
-    image: rabbitmq:4.0.2-management
+    image: rabbitmq:4.2.4-management
     container_name: servicos_rabbitmq
     hostname: servicos_rabbitmq
     restart: always
