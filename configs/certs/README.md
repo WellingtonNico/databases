@@ -5,12 +5,7 @@
 Este comando irá gerar os arquivos de certificado, rode o comando de dentro da pasta `./configs/certs/`, lembre de copiar o arquivo `openssl-ip.cnf` e mudar o IP.
 
 ```bash
-openssl req -x509 -newkey rsa:4096 \
-  -keyout server.key \
-  -out server.crt \
-  -days 36500 \
-  -nodes \
-  -config openssl-ip.cnf
+openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.crt -days 36500 -nodes -config openssl-ip.cnf
 ```
 
 Após criar os arquivos deve dar permissão para o arquivo `server.key` use o comando abaixo:
