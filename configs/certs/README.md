@@ -58,13 +58,26 @@ servicos_rabbitmq:
     - 5671:5671
 ```
 
-- Descomentar a sessão de configuração de SSL no arquivo de configurações `./configs/rabbitmq/rabbitmq.conf`.
+- Descomentar a sessão de configuração de SSL ou adicionar no arquivo de configurações `./configs/rabbitmq/rabbitmq.conf`:
+
+```properties
+ssl_options.cacertfile      = /configs/certs/server.crt
+ssl_options.certfile        = /configs/certs/server.crt
+ssl_options.keyfile         = /configs/certs/server.key
+ssl_options.verify         = verify_none
+ssl_options.fail_if_no_peer_cert = false
+listeners.ssl.default = 5671
+management.ssl.port = 15671
+management.ssl.cacertfile = /configs/certs/server.crt
+management.ssl.certfile   = /configs/certs/server.crt
+management.ssl.keyfile    = /configs/certs/server.key
+```
 
 ## Redis
 
 No arquivo de configuração do redis, precisa desabilitar a porta 6379 e ativar a porta 6380 e apontar para os certificados SSL:
 
-```bash
+```properties
 # Disable non-TLS
 port 0
 
