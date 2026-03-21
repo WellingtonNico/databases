@@ -39,10 +39,16 @@ servicos_postgres:
 No arquivo `pg_hba.conf` precisam ser removidas todas as configurações de segurança e adicionar estas:
 
 ```bash
-# permite acessar direto na máquina sem senha e pode usar na rede interna do docker
-local   all   all   trust
-# exige senha e ssl para acessos externos
-hostssl   all   all   0.0.0.0/0   scram-sha-256
+# "local" is for Unix domain socket connections only
+local   all             all                                     trust
+# replication privilege.
+local   replication     all                                     trust
+
+# Reject any non-SSL connection
+hostnossl all all 0.0.0.0/0 reject
+
+# Everyone else must use SSL + password
+hostssl all all 0.0.0.0/0 scram-sha-256
 ```
 
 ### RabbitMQ
