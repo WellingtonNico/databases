@@ -14,9 +14,9 @@ Após criar os arquivos deve dar permissão para o arquivo `server.key` use o co
 sudo chown 999 ./server.key
 ```
 
-# Para cada serviço há um jeito diferente de usar o SSL
+## Para cada serviço há um jeito diferente de usar o SSL
 
-## Postgres
+### Postgres
 
 Na configuração docker do postgres precisam ser inseridos alguns argumentos na inicialização, configurar o volume dos certificados e expor a porta.
 
@@ -28,9 +28,9 @@ servicos_postgres:
     - -c
     - ssl=on
     - -c
-    - ssl_cert_file=/configs/postgresql/certs/server.crt
+    - ssl_cert_file=/configs/certs/server.crt
     - -c
-    - ssl_key_file=/configs/postgresql/certs/server.key
+    - ssl_key_file=/configs/certs/server.key
   ...
   ports:
     - 5432:5432
@@ -45,7 +45,7 @@ local   all   all   trust
 hostssl   all   all   0.0.0.0/0   scram-sha-256
 ```
 
-## RabbitMQ
+### RabbitMQ
 
 No rabbitmq precisa fazer duas alterações:
 
@@ -73,7 +73,7 @@ management.ssl.certfile   = /configs/certs/server.crt
 management.ssl.keyfile    = /configs/certs/server.key
 ```
 
-## Redis
+### Redis
 
 No arquivo de configuração do redis, precisa desabilitar a porta 6379 e ativar a porta 6380 e apontar para os certificados SSL:
 
